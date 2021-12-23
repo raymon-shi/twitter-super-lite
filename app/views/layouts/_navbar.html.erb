@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(29, 161, 242);">
+  <div class="container-fluid" >
+    <%= link_to 'Twitter Super-Lite', current_user, :class => "navbar-brand", :style => "color:white;" %>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <!-- Should only be seen if logged in-->
+        <% if logged_in? %>
+        <li style="color:white;" class="nav-item"><%= link_to 'Users', "/users", class: 'nav-link' %></li>
+        <li style="color:white;" class="nav-item"><%= link_to 'Feed', "/feeds", class: 'nav-link' %></li>
+        <li style="color:white;" class="nav-item"><%= link_to 'News', "/articles", class: 'nav-link' %></li>
+
+        <li style="color:white;" class="nav-item"><%= link_to 'Log Out', '/logout', method: :delete, class: 'nav-link' %>
+        <li>
+
+          <!-- Should only be seen if NOT logged in -->
+          <% else %>
+        <li style="color:white;" class="nav-item"><%= link_to 'Sign Up', "/users/new", class: 'nav-link' %></li>
+        <li style="color:white;" class="nav-item"><%= link_to 'Log In', '/login', class: 'nav-link' %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

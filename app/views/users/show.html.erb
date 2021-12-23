@@ -1,0 +1,113 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+
+<h1>User Profile</h1>
+<hr>
+<br>
+  <div class="row">
+  <div class="col-sm">
+<div class="card" style="width: 25rem;">
+  <img src="https://i.imgur.com/qN2VoSD.png" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title"> <%= @user.full_name%> </h5>
+    <p class="card-text"> <%= @user.bio %> </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">@<%= @user.username %> </li>
+    <li class="list-group-item"> <%= @user.birthday %> </li>
+    <li class="list-group-item"> <%= @user.location %> </li>
+    <li class="list-group-item"> Member Since:<%= @user.created_at %> </li>
+  </ul>
+  <div class="card-body">
+    <% if @user == current_user%>
+    <%= link_to 'Edit Profile', edit_user_path, :class => "btn btn-outline-primary"%>
+    <%= link_to 'Tweet', new_tweet_path, :class => "btn btn-outline-primary" %>
+    <%= link_to 'Feed', "/feeds", :class => "btn btn-outline-primary" %>
+    <% end %>
+    
+    <% if current_user.followees.include?(@user) %>
+    <%= link_to "Unfollow", unfollowing_user_path, method: "POST", :class => "btn btn-outline-danger"%>
+    <% elsif @user != current_user %>
+    <%= link_to 'Follow', following_user_path, method: "POST", :class => "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+  </div>
+  </div>
+  <div class="col-sm">
+  <h4> Trivia Section </h4>
+  <h5>Random Generated Quote: <%= @quote %> </h5>
+  <h5>Random Generated Fact: <%= @fact %> </h5>
+
+  </div>
+</div>
+
+<br>
+<h1>User Tweets</h1>
+<hr>
+
+<% @tweets.reverse.each do |tweet|%>
+<% if tweet.user_id == @user.id%>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"> <%= @user.full_name%> </h5>
+      <h6 class="card-subtitle mb-2 text-muted">@ <%= @user.username%></h6>
+      <p class="card-text"> <%= tweet.content%> </p>
+      <p class="card-text"> Created On: <%= tweet.created_at%> </p>
+
+        <%# <a href="#" class="card-link">Another link</a> %>
+        <% if @user == current_user%>
+        <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger"%>
+        <% end %>
+    </div>
+  </div>
+<br>
+  <% end %>
+<% end %>
+
+<br>
+<h1>Followers</h1>
+<hr>
+
+<div class="row">
+<% @user.followers.each do |follower|%>
+<div class="card" style="width: 15rem;">
+<a href= <%= user_path(follower) %> >
+    <img src="https://i.imgur.com/qN2VoSD.png" class="card-img-top" >
+</a>
+  <div class="card-body">
+    <h5 class="card-title"> <%= follower.full_name%> </h5>
+    <p class="card-text"> <%= follower.bio %> </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">@<%= follower.username %> </li>
+    <li class="list-group-item"> <%= follower.birthday %> </li>
+    <li class="list-group-item"> <%= follower.location %> </li>
+    <li class="list-group-item"> Member Since:<%= follower.created_at %> </li>
+  </ul>
+</div>
+<% end %>
+
+<br>
+<h1>Followees</h1>
+<hr>
+
+<div class="row">
+<% @user.followees.each do |followee|%>
+<div class="card" style="width: 15rem;">
+<a href= <%= user_path(followee) %> >
+    <img src="https://i.imgur.com/qN2VoSD.png" class="card-img-top" >
+</a>  <div class="card-body">
+    <h5 class="card-title"> <%= followee.full_name%> </h5>
+    <p class="card-text"> <%= followee.bio %> </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">@<%= followee.username %> </li>
+    <li class="list-group-item"> <%= followee.birthday %> </li>
+    <li class="list-group-item"> <%= followee.location %> </li>
+    <li class="list-group-item"> Member Since:<%= followee.created_at %> </li>
+  </ul>
+</div>
+<% end %>
+
+

@@ -1,0 +1,52 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" style="width: 25rem;">
+    <%= form.label :first_name, :class => "form-label" %>
+    <%= form.text_field :first_name, :class => "form-control" %>
+  </div>
+
+  <div class="field" style="width: 25rem;">
+    <%= form.label :last_name, :class => "form-label" %>
+    <%= form.text_field :last_name, :class => "form-control" %>
+  </div>
+
+  <div class="field" style="width: 25rem;">
+    <%= form.label :username, :class => "form-label" %>
+    <%= form.text_field :username, :class => "form-control" %>
+  </div>
+
+    <div class="field" style="width: 25rem;">
+    <%= form.label :password_hash, :class => "form-label" %>
+    <%= form.password_field :password_hash, :class => "form-control" %>
+  </div>
+
+  <div class="field" style="width: 25rem;">
+    <%= form.label :birthday, :class => "form-label" %>
+    <%= form.text_field :birthday, :class => "form-control" %>
+  </div>
+
+  <div class="field" style="width: 25rem;">
+    <%= form.label :bio, :class => "form-label" %>
+    <%= form.text_area :bio, :class => "form-control" %>
+  </div>
+
+    <div class="field" style="width: 25rem;">
+    <%= form.label :location, :class => "form-label" %>
+    <%= form.text_area :location, :class => "form-control" %>
+  </div>
+
+  <div class="actions" style="width: 25rem;">
+    <%= form.submit :class => "btn btn-outline-primary"%>
+  </div>
+<% end %>

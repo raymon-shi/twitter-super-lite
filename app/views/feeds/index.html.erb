@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="container" >
+<h1>Feeds</h1>
+<% @tweets.reverse.each do |tweet|%>
+<% @users.each do |user|%>
+<% if (current_user.followees.include?(user) || user == current_user) && tweet.user_id == user.id %>
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+      <h5 class="card-title"> <%= user.full_name%> </h5>
+      <h6 class="card-subtitle mb-2 text-muted">@ <%= user.username%></h6>
+      <p class="card-text"> <%= tweet.content%> </p>
+      <p class="card-text"> Created On: <%= tweet.created_at%> </p>
+
+        <%# <a href="#" class="card-link">Another link</a> %>
+        <% if user == current_user%>
+        <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger"%>
+        <% end %>
+    </div>
+  </div>
+<br>
+  <% end %>
+<% end %>
+<% end %>
+</div>
+</div>
+
+<br>
+

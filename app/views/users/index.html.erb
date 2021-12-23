@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+
+<% col_max = 2%>
+<div class="container">
+<h1 style="">Users</h1>
+<% ((@users.length() / 2.0).ceil(0)).times do |row_creation_count| %>
+  <div class="row">
+    <% col_max.times do |col_creation_count| %>
+    <% if 2 * row_creation_count + col_creation_count < @users.length()%>
+      <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><%= @users[2 * row_creation_count + col_creation_count].full_name %></h5>
+                <h6 class="card-subtitle mb-2 text-muted">@<%= @users[2 * row_creation_count + col_creation_count].username %></h6>
+                <p class="card-text"><%=@users[2 * row_creation_count + col_creation_count].bio  %></p>
+                <%= link_to "Show", @users[2 * row_creation_count + col_creation_count], :class => "btn btn-outline-primary", :method => :get %>
+              </div>
+            </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+    <br>
+<% end %>
+</div>
+
+
+<br>

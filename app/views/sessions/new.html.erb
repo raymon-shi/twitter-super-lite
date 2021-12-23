@@ -1,0 +1,31 @@
+<h1> Log In </h1>
+
+<% if flash.any? %>
+<% flash.each do |error, message| %>
+<div class="alert alert-danger" role="alert">
+  <%= message %>
+</div>
+<% end %>
+<% end %>
+
+<!-- TODO: Replace this with a form -->
+<%= form_with local:true, model: @user, method: :post do |form| %>
+
+<div class="field">
+  <%= form.label "username", style: "width: 75px" %>
+  <%= form.text_field :username %>
+</div>
+
+<div class="field">
+  <%= form.label "password", style: "width: 75px" %>
+  <%= form.password_field :password_hash %>
+</div>
+
+<p>Don't have an account? <%= link_to "Sign Up!", "/users/new", method: :get, style: "text-decoration: none" %>
+<p>
+
+
+<div class="actions">
+  <%= form.submit "Log In", class: "btn btn-outline-primary" %>
+</div>
+<% end %>
